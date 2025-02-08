@@ -304,7 +304,7 @@ a:focus {
   display: inline-block;
   padding: 10px 15px;
   background-color: #ffffff;
-  color: #62d2a2;
+  color: #337559;
   border-radius: 5px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -903,5 +903,12 @@ a:focus {
 
 .footer_section .footer-info p a {
   color: inherit;
+}
+
+.prediction-result {
+  font-size: 2rem;
+  color: #ef8700;
+  margin-left: 10px;
+  margin: 0px 0px 20px 10px;
 }
 /*# sourceMappingURL=style.css.map */

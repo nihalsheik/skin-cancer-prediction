@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  {% include 'includes/head.html' %}
+  {% include 'includes/header.html' %}
   <script type="text/javascript" src="../static/js/uploader.js"></script>
   <title> Orthoc </title>
 </head>
@@ -25,6 +25,7 @@
             </h2>
           </div>
           <div class="form_container contact-form">
+            <div class="prediction-result">{{prediction}}</div>
             <form action="upload" method="POST" enctype="multipart/form-data">
               <div class="row col-md-12">
                 <div class="col-md-8">

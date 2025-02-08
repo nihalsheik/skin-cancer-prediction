@@ -14,7 +14,7 @@ def connect_mysql():
 def save_user(form_data):
 
     name = form_data['name']
-    phone = form_data['phone']
+    mobile = form_data['mobile']
     email = form_data['email']
     password = form_data['password']
 
@@ -33,7 +33,7 @@ def save_user(form_data):
         }
 
     sql = "INSERT INTO tbl_user (name, email, password, mobile) VALUES (%s, %s, %s, %s)"
-    value = (name, email, password, phone)
+    value = (name, email, password, mobile)
     mycursor.execute(sql, value)
     mydb.commit()
     print('Data inserted')
