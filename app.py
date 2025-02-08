@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 import tensorflow as tf
 from tensorflow.keras.models import load_model  # type: ignore
 from tensorflow.keras.preprocessing import image  # type: ignore
@@ -7,6 +7,9 @@ import numpy as np
 import lib.user as user
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = 'BAD_SECRET_KEY'
+
+
 # app.config['UPLOAD_FOLDER'] = 'tmp/uploads'
 # ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
@@ -20,6 +23,10 @@ def static_file(path):
 def login():
     form_data = request.get_json()
     result = user.check_login(form_data['email'], form_data['password'])
+
+    if result:
+        session['user'] = form_data['email']
+
     return jsonify({
         'result': result
     })
@@ -29,6 +36,12 @@ def signup():
     form_data = request.get_json()
     result = user.save_user(form_data)
     return jsonify(result)
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop("user", None)
+    return jsonify({'result': 1})
 
 
 print('Loading model skin.h5...')

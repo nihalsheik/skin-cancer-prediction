@@ -2,54 +2,55 @@
 <html>
 
 <head>
-  {% include 'includes/header.html' %}
-  <script type="text/javascript" src="../static/js/uploader.js"></script>
-  <title> Orthoc </title>
+    {% include 'includes/header.html' %}
+    <script type="text/javascript" src="../static/js/uploader.js"></script>
+    <title> Orthoc </title>
 </head>
 
 
 <body class="sub_page">
 
-  <div class="hero_area">
-    {% include 'includes/menu.html' %}
-  </div>
+    <div class="hero_area">
+        {% include 'includes/menu.html' %}
+    </div>
 
-  <!-- contact section -->
-  <section class="contact_section layout_padding">
-    <div class="container">
-      <div class="row  d-flex justify-content-center">
-        <div class="col-md-6">
-          <div class="heading_container">
-            <h2>
-              Login
-            </h2>
-          </div>
-          <div class="form_container contact-form">
-            <div class="prediction-result">{{prediction}}</div>
-            <form action="upload" method="POST" enctype="multipart/form-data">
-              <div class="row col-md-12">
-                <div class="col-md-8">
-                  <input type="file" name="image_file" id="imagefile" placeholder="file" accept="image/*"
-                    onchange="previewImage();" required="">
+    <!-- contact section -->
+    <section class="contact_section layout_padding">
+        <div class="container">
+            <div class="row  d-flex justify-content-center">
+                <div class="col-md-6">
+                    <div class="heading_container">
+                        <h2>
+                            Upload Image
+                        </h2>
+                    </div>
+                    <div class="form_container contact-form">
+                        <div class="prediction-result">{{prediction}}</div>
+                        <form action="upload" method="POST" enctype="multipart/form-data">
+                            <div class="row col-md-12">
+                                <div class="col-md-8">
+                                    <input type="file" name="image_file" id="imagefile" placeholder="file"
+                                        accept="image/*" onchange="previewImage();" required="">
+                                </div>
+                                <div class="col-md-4">
+                                    <button>
+                                        Upload
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <img id="preview" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <button>
-                      Upload
-                    </button>
-                </div>
-              </div>
-              <div>
-                <img id="preview" />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-  </section>
-  <!-- end contact section -->
+            </div>
+    </section>
+    <!-- end contact section -->
 
-  {% include 'includes/footer.html' %}
+    {% include 'includes/footer.html' %}
 
 </body>
 
 </html>
+

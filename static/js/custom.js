@@ -44,3 +44,35 @@ function myMap() {
     };
     var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 }
+
+function login() {
+    $.ajax({
+        url: 'login',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            email: $('#email').val(),
+            password: $('#password').val(),
+        }),
+        success: function (data) {
+            if (data.result == true) {
+                window.location = "index"
+            } else {
+                $('#form-error')
+                    .text('Invalid Username / Password')
+                    .show();
+            }
+        }
+    });
+}
+
+function logout() {
+  $.ajax({
+        url: 'logout',
+        method: 'POST',
+        contentType: 'application/json',
+        success: function (data) {
+            window.location = "index"
+        }
+    });
+}

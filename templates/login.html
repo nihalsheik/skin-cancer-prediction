@@ -34,10 +34,15 @@
                             style="margin-top: 10px; margin-bottom: 10px; display: none;color: #ff0000;font-size:18px;;">
                         </div>
                         <div class="btn_box">
-                            <button onclick="login()">
-                                Login
-                            </button>
+                            <button onclick="login()">Login </button>
+                            
                         </div>
+
+                        <p class="signup-text">
+                            Don't have an account? <a href="Signup">Click Here</a>
+                        </p>
+                    </div>
+                    
                     </div>
                 </div>
             </div>
@@ -46,29 +51,6 @@
 
     {% include 'includes/footer.html' %}
 
-    <script>
-
-        function login() {
-            $.ajax({
-                url: 'login',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    email: $('#email').val(),
-                    password: $('#password').val(),
-                }),
-                success: function (data) {
-                    if (data.result == true) {
-                        window.location = "index"
-                    } else {
-                        $('#form-error')
-                            .text('Invalid Username / Password')
-                            .show();
-                    }
-                }
-            });
-        }
-    </script>
 </body>
 
 </html>
