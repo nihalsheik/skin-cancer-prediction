@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% include 'includes/head.html' %}
+  <title> Orthoc </title>
+</head>
+
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    {% include 'includes/menu.html' %}
+  </div>
+
+  <!-- contact section -->
+  <section class="contact_section layout_padding">
+    <div class="container">
+      <div class="row  d-flex justify-content-center">
+        <div class="col-md-6">
+          <div class="heading_container">
+            <h2>
+              Login
+            </h2>
+          </div>
+          <div class="form_container contact-form">
+              <div>
+                <input type="email" placeholder="Email" id="email" />
+              </div>
+              <div>
+                <input type="password" placeholder="Password" id="password" />
+              </div>
+              <div id="form-error">
+              </div>
+              <div class="btn_box">
+                <button onclick="login()">
+                  Login
+                </button>
+              </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <!-- end contact section -->
+
+  {% include 'includes/footer.html' %}
+
+  <script>
+
+    function login() {
+      $.ajax({
+        url: 'login',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          email: $('#email').val(),
+          password:  $('#password').val(),
+        }),
+        success: function (data) {
+          if (data.result == true) {
+            window.location = "index"
+          } else {
+              $('#form-error')
+      .text('Invalid Username / Password')
+      .css({
+          'color': 'red',
+          'margin-top': '10px',  // Add top margin
+          'margin-bottom': '10px' // Add bottom margin
+      })
+      .show();
+          }
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
+
+
+
+
