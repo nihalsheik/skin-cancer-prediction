@@ -911,4 +911,19 @@ a:focus {
   margin-left: 10px;
   margin: 0px 0px 20px 10px;
 }
+
+.spinner {
+   width: 8px;
+   height: 8px;
+   border-radius: 8px;
+   box-shadow: 20px 0px 0 0 rgba(126,161,115,0.2), 16.2px 11.8px 0 0 rgba(126,161,115,0.4), 6.2px 19px 0 0 rgba(126,161,115,0.6), -6.2px 19px 0 0 rgba(126,161,115,0.8), -16.2px 11.8px 0 0 #7ea173;
+   animation: spinner-b87k6z 1.2s infinite linear;
+}
+
+@keyframes spinner-b87k6z {
+   to {
+      transform: rotate(360deg);
+   }
+}
+
 /*# sourceMappingURL=style.css.map */

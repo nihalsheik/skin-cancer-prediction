@@ -3,7 +3,7 @@
 
 <head>
     {% include 'includes/header.html' %}
-    <title> Orthoc </title>
+    <title>Patient List</title>
 </head>
 
 <body class="sub_page">
@@ -12,12 +12,20 @@
     {% include 'includes/menu.html' %}
 </div>
 
+
 <!-- contact section -->
 <section class="contact_section" style="padding: 50px; height: 500px">
-    <div class="container">
-        <div class="row  d-flex justify-content-center" style="border:1px solid #dddddd;">
 
-            <table class="table table-striped" id="patientTable">
+    <div class="container" >
+         <div class="row  d-flex" style="margin-bottom: 20px;">
+             <button type="button" class="btn btn-success">
+                 <a href="patientreg" style="color:#ffffff">Register</a>
+             </button>
+         </div>
+        <div class="row  d-flex justify-content-center">
+            <div class="spinner"></div>
+
+            <table class="table table-striped" id="patientTable" style="display: none;border:1px solid #dddddd;">
                 <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -39,21 +47,7 @@
 {% include 'includes/footer.html' %}
 
 <script>
-    $(document).ready(function(){
-
-        $.get('/api/patients', function(data) {
-            var table = $('#patientTable tbody');
-            data.forEach(row => {
-                var tr = $('<tr>');
-                tr.append( $('<td>').text(row.name));
-                tr.append( $('<td>').text(row.dob));
-                tr.append( $('<td>').text(row.age));
-                tr.append( $('<td>').text(row.mobile));
-                table.append(tr);
-            });
-        });
-
-    });
+    $(document).ready(patientList)
 </script>
 </body>
 </html>

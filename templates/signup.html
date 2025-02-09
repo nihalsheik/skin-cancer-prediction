@@ -3,7 +3,7 @@
 
 <head>
     {% include 'includes/header.html' %}
-    <title> Orthoc </title>
+    <title> Skin Diagnostics Center</title>
 </head>
 
 
@@ -60,42 +60,7 @@
     </section>
     <!-- end contact section -->
 
-
     {% include 'includes/footer.html' %}
-
-    <script>
-
-        function doSignup() {
-            var name = $('#name').val();
-            var email = $('#email').val();
-            var mobile = $('#mobile').val();
-            var password = $('#password').val();
-
-            $.ajax({
-                url: 'signup',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    name: name,
-                    email: email,
-                    mobile: mobile,
-                    password: password
-                }),
-                success: function (data) {
-                    console.log(data);
-
-                    if (data.hasError == false) {
-                        window.location = "index"
-                    } else {
-                        $('#form-error')
-                            .text(data.error)
-                            .show();
-                    }
-                }
-            });
-        }
-    </script>
-
 
 </body>
 

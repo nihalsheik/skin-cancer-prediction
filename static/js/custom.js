@@ -76,3 +76,81 @@ function logout() {
         }
     });
 }
+
+function doSignup() {
+    var name = $('#name').val();
+    var email = $('#email').val();
+    var mobile = $('#mobile').val();
+    var password = $('#password').val();
+
+    $.ajax({
+        url: 'signup',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            name: name,
+            email: email,
+            mobile: mobile,
+            password: password
+        }),
+        success: function (data) {
+            console.log(data);
+
+            if (data.hasError == false) {
+                window.location = "index"
+            } else {
+                $('#form-error')
+                    .text(data.error)
+                    .show();
+            }
+        }
+    });
+}
+
+function patientList() {
+   $.get('/api/patients', function(data) {
+        $('.spinner').hide();
+
+        var table = $('#patientTable tbody');
+        data.forEach(row => {
+            var tr = $('<tr>');
+            tr.append( $('<td>').text(row.name));
+            tr.append( $('<td>').text(row.dob));
+            tr.append( $('<td>').text(row.address));
+            tr.append( $('<td>').text(row.mobile));
+            table.append(tr);
+        });
+         $('#patientTable').show();
+    });
+}
+
+function registerPatient() {
+
+    var name = $('#name').val();
+    var dob = $('#dob').val();
+    var mobile = $('#mobile').val();
+    var address = $('#address').val();
+
+    $.ajax({
+        url: '/patient/register',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            name: name,
+            dob: dob,
+            mobile: mobile,
+            address: address
+        }),
+        success: function (data) {
+            console.log(data);
+
+            if (data.hasError == false) {
+                window.location = "index"
+            } else {
+                $('#form-error')
+                    .text(data.error)
+                    .show();
+            }
+        }
+    });
+}
