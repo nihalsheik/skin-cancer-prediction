@@ -10,44 +10,126 @@
 
 <body class="sub_page">
 
-    <div class="hero_area">
-        {% include 'includes/menu.html' %}
-    </div>
+<div class="hero_area">
+    {% include 'includes/menu.html' %}
+</div>
 
-    <!-- contact section -->
-    <section class="contact_section layout_padding">
-        <div class="container">
-            <div class="row  d-flex justify-content-center">
-                <div class="col-md-6">
-                    <div class="heading_container">
-                        <h2>
+<!-- contact section -->
+<section class="contact_section" style="padding-top: 60px">
+    <div class="container">
+        <div class="row  d-flex justify-content-center">
+
+            <div class="col-md-6">
+
+                <h3>
+                    Diagnosis
+                </h3>
+
+                <p class="text-justify">
+                    A patient diagnosis involves a healthcare professional gathering information about a patient's
+                    symptoms, medical history,
+                    performing a physical examination, and potentially ordering additional diagnostic tests like blood
+                    work or imaging to identify the underlying cause of their health issue, ultimately reaching a
+                    conclusion about their condition, known as the diagnosis; this process includes taking a detailed
+                    medical history, conducting a physical exam, interpreting test results, and considering potential
+                    differential diagnoses to arrive at the most likely explanation for the patient's symptoms.
+                </p>
+
+                <h3>
+                    Upload Image
+                </h3>
+
+                <div class="form_container contact-form">
+                    <form action="diagnose" method="POST" enctype="multipart/form-data">
+
+                        <input type="file" name="image_file" id="imagefile" placeholder="file"
+                               accept="image/*" onchange="previewImage();" required=""
+                               style="padding:10px;border:1px solid #aaaaaa;border-radius:4px">
+
+                        <button>
                             Upload Image
-                        </h2>
-                    </div>
-                    <div class="form_container contact-form">
-                        <form action="diagnose" method="POST" enctype="multipart/form-data">
-                            <div class="row col-md-12">
-                                <div class="col-md-8">
-                                    <input type="file" name="image_file" id="imagefile" placeholder="file"
-                                        accept="image/*" onchange="previewImage();" required="">
-                                </div>
-                                <div class="col-md-4">
-                                    <button>
-                                        Upload
-                                    </button>
-                                </div>
-                            </div>
-                            <div>
-                                <img id="preview" />
-                            </div>
-                        </form>
-                    </div>
+                        </button>
+
+                        <div class="row  d-flex justify-content-center" style="margin-top:20px;">
+                            <img id="preview" style="width:300px;border: 1px solid #aaaaaa;padding:2px;display:none"
+                                 src=""/>
+                        </div>
+
+                    </form>
                 </div>
             </div>
-    </section>
-    <!-- end contact section -->
 
-    {% include 'includes/footer.html' %}
+            <div class="col-md-6">
+
+
+                <p class="fs-1 font-weight-bold">Key steps in patient diagnosis:</p>
+                <p class="fs-1 font-weight-bold">Taking a medical history:</p>
+                <p class="text-justify">
+                    Asking the patient about their current symptoms, past medical conditions, family history, lifestyle
+                    habits, and medications they take.
+                </p>
+
+                <p class="fs-1 font-weight-bold">Physical examination:</p>
+                <p class="text-justify">
+                    Performing a hands-on assessment by checking vital signs, listening to the heart and lungs,
+                    palpating
+                    the abdomen, and examining relevant body areas based on the patient's concerns.
+                </p>
+
+                <p class="fs-1 font-weight-bold">Differential diagnosis:</p>
+                <p class="text-justify">
+                    Considering multiple possible explanations for the patient's symptoms based on their presentation
+                    and
+                    medical history.
+                </p>
+
+                <p class="fs-1 font-weight-bold">Ordering diagnostic tests:</p>
+                <p class="text-justify">
+                    Depending on the suspected condition, the doctor may order blood tests, urine tests, imaging studies
+                    (like X-rays, CT scans, MRIs), biopsies, or other specialized tests to confirm the diagnosis.
+                </p>
+
+                <p class="fs-1 font-weight-bold">Interpreting test results:</p>
+                <p class="text-justify">
+                    Analyzing the data from the diagnostic tests to support or refute the initial working diagnosis.
+                </p>
+
+                <p class="fs-1 font-weight-bold">Reaching a final diagnosis:</p>
+                <p class="text-justify">
+                    Based on the collected information, the healthcare provider will determine the most likely diagnosis
+                    for
+                    the patient's condition.
+                </p>
+
+                <p class="fs-1 font-weight-bold">Important points to remember about patient diagnosis:</p>
+                <p class="fs-1 font-weight-bold"> Communication is key:</p>
+                <p class="text-justify">
+                    Open communication between the patient and healthcare provider is crucial to gather accurate
+                    information
+                    and explain the diagnosis clearly.
+                </p>
+
+                <p class="fs-1 font-weight-bold"> Continuous process:</p>
+                <p class="text-justify">
+                    Diagnosis can be an iterative process, where new information may lead to adjustments in the working
+                    diagnosis as more data becomes available.
+                </p>
+
+                <p class="fs-1 font-weight-bold">Clinical expertise:</p>
+                <p class="text-justify">
+                    A doctor's experience and knowledge play a significant role in interpreting symptoms and test
+                    results to
+                    reach an accurate diagnosis.
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- end contact section -->
+
+{% include 'includes/footer.html' %}
 
 </body>
 

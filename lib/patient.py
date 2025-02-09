@@ -7,6 +7,11 @@ class Patient:
         res = self.mysqldb.fetch_all('select name,dob,mobile,address from tbl_patient')
         return self.mysqldb.parse(res, ('name', 'dob', 'mobile', 'address'))
 
+    def get(self, mobile):
+        rows = self.mysqldb.fetch_all('select name,dob,mobile,address from tbl_patient where mobile = %s', (mobile,))
+        res = self.mysqldb.parse(rows, ('name', 'dob', 'mobile', 'address'))
+        return res[0] if len(res) else {}
+
     def register(self, form_data):
 
         name = form_data['name']
@@ -40,7 +45,7 @@ class Patient:
 
         sql = "INSERT INTO tbl_patient (name, dob, mobile, address) VALUES (%s, %s, %s, %s)"
 
-        self.mysqldb.execute(sql,  (name, dob, mobile, address))
+        self.mysqldb.execute(sql, (name, dob, mobile, address))
         self.mysqldb.commit()
 
         print('Data inserted')
@@ -48,6 +53,3 @@ class Patient:
         return {
             'hasError': False
         }
-
-
-

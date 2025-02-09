@@ -1,6 +1,7 @@
 function previewImage() {
   var file = document.getElementById("imagefile").files;
   if (file.length > 0) {
+    $('#preview').show();
     var fileReader = new FileReader();
 
     fileReader.onload = function (event) {

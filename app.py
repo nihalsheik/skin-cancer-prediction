@@ -1,19 +1,18 @@
 from flask import Flask, render_template, request, jsonify, session
+import numpy as np # noqa
+from lib.mysql_db import MySqlDB
+from lib.user import User
+from lib.patient import Patient
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # --------- Tensorflow Imports
 import tensorflow as tf
-from tensorflow.keras.models import load_model  # type: ignore
-from tensorflow.keras.preprocessing import image  # type: ignore
-from tensorflow.keras.metrics import AUC  # type: ignore
-import numpy as np
+from tensorflow.keras.models import load_model  # type: ignore # noqa
+from tensorflow.keras.preprocessing import image  # type: ignore # noqa
+from tensorflow.keras.metrics import AUC  # type: ignore # noqa
 # --------- Tensorflow Imports
-
-from lib.mysql_db import MySqlDB
-from lib.user import User
-from lib.patient import Patient
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'BAD_SECRET_KEY'
@@ -35,12 +34,7 @@ def home():
 def static_file(path):
     if not path.endswith('.html'):
         path += '.html'
-    return render_template(path)
-
-
-@app.route('/api/patients')
-def patients():
-    return jsonify(patient.get_list())
+    return render_template(path, params = {})
 
 
 @app.route("/login", methods=['POST'])
@@ -70,6 +64,18 @@ def register_patient():
     return jsonify(result)
 
 
+@app.route('/patient-list')
+def patients():
+    patient_list = patient.get_list()
+    return render_template('patient-list.html', patient_list = patient_list)
+
+@app.route("/patient-detail")
+def patient_detail():
+    mobile = request.args['mobile']
+    row = patient.get(mobile)
+    return render_template('patient-detail.html', patient = row)
+
+
 @app.route('/logout', methods=['POST'])
 def logout():
     session.pop("user", None)
@@ -86,7 +92,7 @@ def diagnose():
     img_path = "tmp/uploads/" + img.filename
     img.save(img_path)
     diagnose_result = predict(img_path)
-    return render_template("diagnose-result.html", diagnose_name=diagnose_result[1], diagnose_desc=diagnose_result[2])
+    return render_template("diagnose-result.html", params=diagnose_result)
 
 
 def predict(img_path):
@@ -95,10 +101,8 @@ def predict(img_path):
     test_image = test_image.reshape(1, 28, 28, 3)
     predict_x = model.predict(test_image)
     classes_x = np.argmax(predict_x, axis=1)
-    print(classes_x)
-    print('Disease type ', classes_x[0])
     res = mysqldb.fetch_one('SELECT type,name,description FROM tbl_disease WHERE type = %s', (str(classes_x[0]),))
-    return res
+    return mysqldb.parse([res], ('id', 'name', 'description'))[0]
 
 
 if __name__ == '__main__':

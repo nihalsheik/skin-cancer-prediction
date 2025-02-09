@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'includes/header.html' %}
+    <title>Patient Details</title>
+</head>
+
+<body class="sub_page">
+
+<div class="hero_area">
+    {% include 'includes/menu.html' %}
+</div>
+
+<!-- Patient Details Section -->
+<section class="contact_section layout_padding">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="heading_container">
+                    <h2>Patient Details</h2>
+                </div>
+                <table class="table" border="1" style="border:1px solid #dddddd;width:80%;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%">Full Name</td>
+                            <td>{{ patient.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth</td>
+                            <td>{{ patient.dob }}</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>{{ patient.address }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile</td>
+                            <td>{{ patient.mobile }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-success">
+                    <a href="patient-list" style="color:#ffffff">Go Back</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Patient Details Section -->
+
+{% include 'includes/footer.html' %}
+
+</body>
+</html>
+
+
+
