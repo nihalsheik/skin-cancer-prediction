@@ -4,19 +4,36 @@ from tensorflow.keras.models import load_model  # type: ignore
 from tensorflow.keras.preprocessing import image  # type: ignore
 from tensorflow.keras.metrics import AUC  # type: ignore
 import numpy as np
-import lib.user as user
+from lib.mysql_db import MySqlDB
+from lib.user import User
+from lib.patient import Patient
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'BAD_SECRET_KEY'
+
+mysqldb = MySqlDB()
+user = User(mysqldb)
+patient = Patient(mysqldb)
 
 
 # app.config['UPLOAD_FOLDER'] = 'tmp/uploads'
 # ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
 @app.route('/<path:path>')
 def static_file(path):
-    print(path)
-    return render_template(path + '.html')
+    if not path.endswith('.html'):
+        path += '.html'
+    return render_template(path)
+
+
+@app.route('/api/patients')
+def patients():
+    return jsonify(patient.get_list())
 
 
 @app.route("/login", methods=['POST'])

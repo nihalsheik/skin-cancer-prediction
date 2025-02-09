@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'includes/header.html' %}
+    <title> Orthoc </title>
+</head>
+
+<body class="sub_page">
+
+<div class="hero_area">
+    {% include 'includes/menu.html' %}
+</div>
+
+<!-- contact section -->
+<section class="contact_section" style="padding: 50px; height: 500px">
+    <div class="container">
+        <div class="row  d-flex justify-content-center" style="border:1px solid #dddddd;">
+
+            <table class="table table-striped" id="patientTable">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">DOB</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Mobile</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+<!-- end contact section -->
+
+{% include 'includes/footer.html' %}
+
+<script>
+    $(document).ready(function(){
+
+        $.get('/api/patients', function(data) {
+            var table = $('#patientTable tbody');
+            data.forEach(row => {
+                var tr = $('<tr>');
+                tr.append( $('<td>').text(row.name));
+                tr.append( $('<td>').text(row.dob));
+                tr.append( $('<td>').text(row.age));
+                tr.append( $('<td>').text(row.mobile));
+                table.append(tr);
+            });
+        });
+
+    });
+</script>
+</body>
+</html>
