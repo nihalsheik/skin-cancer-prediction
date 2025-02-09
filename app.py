@@ -92,7 +92,7 @@ def diagnose():
     img_path = "tmp/uploads/" + img.filename
     img.save(img_path)
     diagnose_result = predict(img_path)
-    return render_template("diagnose-result.html", params=diagnose_result)
+    return render_template("diagnose-result.html", diagnose_result=diagnose_result)
 
 
 def predict(img_path):

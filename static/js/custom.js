@@ -45,6 +45,10 @@ function myMap() {
     var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 }
 
+function nav(page) {
+    window.location = page;
+}
+
 function login() {
     $.ajax({
         url: 'login',
@@ -107,22 +111,6 @@ function doSignup() {
     });
 }
 
-function patientList() {
-   $.get('/api/patients', function(data) {
-        $('.spinner').hide();
-
-        var table = $('#patientTable tbody');
-        data.forEach(row => {
-            var tr = $('<tr>');
-            tr.append( $('<td>').text(row.name));
-            tr.append( $('<td>').text(row.dob));
-            tr.append( $('<td>').text(row.address));
-            tr.append( $('<td>').text(row.mobile));
-            table.append(tr);
-        });
-         $('#patientTable').show();
-    });
-}
 
 function registerPatient() {
 
