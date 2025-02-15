@@ -149,14 +149,21 @@ function buildDoctorList(result) {
         method: 'GET',
         success: function(result) {
             var doctorList = $('#doctorList');
-            var opt = $('<option>').text('- Select Doctor -');
-            doctorList.append(opt);
             result.forEach(doctor => {
-                opt = $('<option>').attr('value', doctor.id).text(doctor.name);
+                var opt = $('<option>').attr('value', doctor.id + ',' + doctor.fees).text(doctor.name);
                 doctorList.append(opt);
             });
         }
     });
+}
+
+function fillDoctorFees() {
+    var doctorList = $('#doctorList');
+    var value = doctorList.val();
+    var arr = value.split(','); // it will split 102,660 into [101,600]
+    var fees = arr[1];
+    var feesBox = $('#fees');
+    feesBox.val(fees);
 }
 
 function searchPatient() {
@@ -169,14 +176,51 @@ function searchPatient() {
             container.append(patient.name + ", ");
             container.append(patient.address + ", ");
             container.append(patient.mobile);
-            debugger;
+            $('#patientId').val(patient.id);
         }
     })
 }
 
 
 function bookAppointment() {
-    var doctorId = $('');
-    var patientId = $('');
-    var amount = $('');
+    var patientId = $('#patientId').val();
+    var doctorId = $('#doctorList').val();
+    var date = $('#date').val();
+    var fees = $('#fees').val();
+
+    var errorDiv = document.getElementById("form-error");
+    var qrDiv = document.getElementById("payment-qr");
+
+    if (patientId == '-1' || doctorId == '-1' || !date || !amount) {
+        errorDiv.innerText = "Please fill in all fields!";
+        errorDiv.style.display = "block";
+        return;
+    }
+    errorDiv.style.display = "none";
+//    qrDiv.style.display = "block";
+
+
+    $.ajax({
+        url: '/api/appointment/book',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            patient_id: patientId,
+            doctor_id: doctorId,
+            date: date,
+            fees: fees
+        }),
+        success: function (data) {
+            debugger;
+            if (data.error == null) {
+                window.location = "index"
+            } else {
+                $('#form-error')
+                    .text(data.error)
+                    .show();
+            }
+        }
+    });
+
+    debugger;
 }

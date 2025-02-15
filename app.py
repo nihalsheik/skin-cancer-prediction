@@ -68,8 +68,8 @@ def register_patient():
 
 @app.route("/api/doctors", methods=['GET'])
 def get_doctors():
-    res = mysqldb.fetch_all('select id,name from tbl_doctor')
-    return jsonify(mysqldb.parse(res, ('id', 'name')))
+    res = mysqldb.fetch_all('select id,name,fees from tbl_doctor')
+    return jsonify(mysqldb.parse(res, ('id', 'name', 'fees')))
 
 
 @app.route("/api/patient/search", methods=['GET'])
@@ -81,14 +81,15 @@ def search_patient():
 
 @app.route("/api/appointment/book", methods=['POST'])
 def book_appointment():
-    appointment.book(request.args)
-    return jsonify({})
+    res = appointment.book(request.get_json())
+    return jsonify(res)
 
 
 @app.route('/patient-list')
 def patients():
     patient_list = patient.get_list()
     return render_template('patient-list.html', patient_list = patient_list)
+
 
 @app.route("/patient-detail")
 def patient_detail():
