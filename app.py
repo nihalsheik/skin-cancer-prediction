@@ -3,6 +3,7 @@ import numpy as np # noqa
 from lib.mysql_db import MySqlDB
 from lib.user import User
 from lib.patient import Patient
+from lib.appointment import Appointment
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -20,6 +21,7 @@ app.secret_key = 'BAD_SECRET_KEY'
 mysqldb = MySqlDB()
 user = User(mysqldb)
 patient = Patient(mysqldb)
+appointment = Appointment(mysqldb)
 
 
 # app.config['UPLOAD_FOLDER'] = 'tmp/uploads'
@@ -62,6 +64,25 @@ def register_patient():
     form_data = request.get_json()
     result = patient.register(form_data)
     return jsonify(result)
+
+
+@app.route("/api/doctors", methods=['GET'])
+def get_doctors():
+    res = mysqldb.fetch_all('select id,name from tbl_doctor')
+    return jsonify(mysqldb.parse(res, ('id', 'name')))
+
+
+@app.route("/api/patient/search", methods=['GET'])
+def search_patient():
+    mobile = request.args['mobile']
+    p = patient.get(mobile)
+    return jsonify(p)
+
+
+@app.route("/api/appointment/book", methods=['POST'])
+def book_appointment():
+    appointment.book(request.args)
+    return jsonify({})
 
 
 @app.route('/patient-list')

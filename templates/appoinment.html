@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'includes/header.html' %}
+    <title>Skin Diagnostics Center</title>
+</head>
+
+<body class="sub_page">
+
+<div class="hero_area">
+    {% include 'includes/menu.html' %}
+</div>
+
+<!-- contact section -->
+<section class="contact_section" style="padding: 50px">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                <div class="heading_container">
+                    <h2>
+                        Book Appointment
+                    </h2>
+                </div>
+
+                <div class="form_container contact-form">
+                    <p>Please register before booking an appointment <a href="patientreg">Register</a></p>
+
+                    <div style="margin-top:10px;">
+                        <input type="text" placeholder="Mobile" id="mobile"/>
+                    </div>
+                    <div id="patientDetail" style="margin:10px;"></div>
+                    <div>
+                        <button onclick="searchPatient()">Search</button>
+                    </div>
+
+                    <div>
+                        <select class="form-select form-select-lg mb-3"
+                                style="width: 100%; height: 40px;margin-top:20px;" id="doctorList">
+                            <option value="">Select Doctor</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="date" placeholder="Date" id="date"/>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Amount" id="amount"/>
+                    </div>
+                    <div id="form-error"
+                         style="margin-top: 10px; margin-bottom: 10px; display: none;color: #ff0000;font-size:18px;">
+                    </div>
+                    <div class="btn_box">
+                        <button onclick="bookAppointment()">
+                            Book Appointment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- QR Code for Payment -->
+                <div id="payment-qr" style="display: none; text-align: center; margin-top: 20px;">
+                    <h3>Scan to Pay</h3>
+                    <img src="/static/images/qr.png" alt="QR Code for Payment" style="width: 200px; height: 200px;"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end contact section -->
+
+{% include 'includes/footer.html' %}
+
+<script>
+    $(document).ready(buildDoctorList);
+
+    function bookAppointment() {
+        var mobile = document.getElementById("mobile").value;
+        var doctor = document.getElementById("doctorList").value;
+        var date = document.getElementById("date").value;
+        var amount = document.getElementById("amount").value;
+        var errorDiv = document.getElementById("form-error");
+        var qrDiv = document.getElementById("payment-qr");
+
+        if (!mobile || !doctor || !date || !amount) {
+            errorDiv.innerText = "Please fill in all fields!";
+            errorDiv.style.display = "block";
+            return;
+        }
+
+        errorDiv.style.display = "none";
+
+        qrDiv.style.display = "block";
+
+        console.log("Appointment booked successfully!");
+    }
+</script>
+
+</body>
+</html>

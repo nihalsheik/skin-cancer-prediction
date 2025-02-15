@@ -10,7 +10,7 @@ class Patient:
     def get(self, mobile):
         rows = self.mysqldb.fetch_all('select name,dob,mobile,address from tbl_patient where mobile = %s', (mobile,))
         res = self.mysqldb.parse(rows, ('name', 'dob', 'mobile', 'address'))
-        return res[0] if len(res) else {}
+        return res[0] if len(res) else None
 
     def register(self, form_data):
 

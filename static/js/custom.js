@@ -142,3 +142,41 @@ function registerPatient() {
         }
     });
 }
+
+function buildDoctorList(result) {
+    $.ajax({
+        url: '/api/doctors',
+        method: 'GET',
+        success: function(result) {
+            var doctorList = $('#doctorList');
+            var opt = $('<option>').text('- Select Doctor -');
+            doctorList.append(opt);
+            result.forEach(doctor => {
+                opt = $('<option>').attr('value', doctor.id).text(doctor.name);
+                doctorList.append(opt);
+            });
+        }
+    });
+}
+
+function searchPatient() {
+    var mobile = $('#mobile').val()
+     $.ajax({
+        url: '/api/patient/search?mobile=' + mobile,
+        method: 'GET',
+        success: function(patient) {
+            var container = $('#patientDetail');
+            container.append(patient.name + ", ");
+            container.append(patient.address + ", ");
+            container.append(patient.mobile);
+            debugger;
+        }
+    })
+}
+
+
+function bookAppointment() {
+    var doctorId = $('');
+    var patientId = $('');
+    var amount = $('');
+}
